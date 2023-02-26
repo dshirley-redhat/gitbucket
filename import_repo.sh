@@ -23,7 +23,7 @@ for repo in `echo $repos`; do
     # push to gitbucket
     pushd $TMP
     git remote set-url origin https://root:root@$gitbucket_url/$gitbucket_user/$repo.git
-    git push origin --mirror -f
+    git -c http.sslVerify=false push origin --mirror -f
 
     popd && rm -rf $TMP
 done
