@@ -18,7 +18,7 @@ for repo in `echo $repos`; do
     git clone --mirror https://github.com/dshirley-redhat/$repo $TMP
 
     # create the repo on gitbucket
-    http --verify=no --auth $gb_userpass POST https://$gitbucket_url/api/v3/orgs/$gitbucket_user/repos name=$repo
+    http --verify=no --ignore-stdin --auth $gb_userpass POST https://$gitbucket_url/api/v3/orgs/$gitbucket_user/repos name=$repo
 
     # push to gitbucket
     pushd $TMP
