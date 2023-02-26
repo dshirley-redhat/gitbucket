@@ -3,14 +3,13 @@
 set -x
 
 TMP=tmp_repo
-repos="DO280-apps"
 gb_userpass='root:root'
 gitbucket_url="gitbucket.apps.dshirley1ipi.vmware.tamlab.rdu2.redhat.com"
 gitbucket_user="root"
 
 cd /tmp
 
-for repo in `echo $repos`; do
+for repo in `echo $import_repos`; do
     echo "--- Migrating $repo"
     rm -rf $TMP
 
