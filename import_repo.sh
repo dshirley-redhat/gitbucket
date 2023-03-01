@@ -17,6 +17,7 @@ for repo in `echo $import_repos`; do
         https://$gitbucket_url/api/v3/orgs/$gitbucket_user/repos name=$repo
 
     curl -u $gitbucket_user:$gitbucket_password \
+        --insecure \
         -X POST \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
