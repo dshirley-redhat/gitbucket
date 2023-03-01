@@ -4,8 +4,6 @@ set -x
 
 TMP=tmp_repo
 developer_argo_webhook_url="developer-gitops-server-developer-gitops.apps.dshirley1ipi.vmware.tamlab.rdu2.redhat.com"
- 
-cd /tmp
 
 for repo in `echo $import_repos`; do
     echo "--- Migrating $repo"
@@ -18,10 +16,13 @@ for repo in `echo $import_repos`; do
     http --verify=no --ignore-stdin --auth $gitbucket_user:$gitbucket_password POST \
         https://$gitbucket_url/api/v3/orgs/$gitbucket_user/repos name=$repo
 
-    http --verify=no --ignore-stdin --auth $gitbucket_user:$gitbucket_password POST \
-        https://$gitbucket_url/api/v3/orgs/$gitbucket_user/$repo/hooks \
-        '{"name":"web","active":true,"events":["push","pull_request"],"config":{"url":'https://$developer_argo_webhook_url/api/webhook',"content_type":"json","insecure_ssl":"0"}}'
- 
+    curl -u $gitbucket_user:$gitbucket_password \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://$gitbucket_url/api/v3/repos/$gitbucket_user/$repo/hooks \
+        -d '{"name":"developer-gitops","active":true,"events":["push"],"config":{"url":"'$developer_argo_webhook_url'","content_type":"json","insecure_ssl":"0"}}'
+
     # push to gitbucket
     pushd $TMP
     git remote set-url origin https://$gitbucket_user:$gitbucket_password@$gitbucket_url/$gitbucket_user/$repo.git

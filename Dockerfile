@@ -13,5 +13,7 @@ RUN yum install -y \
 
 RUN python3 -m pip install --upgrade pip wheel && \
     python3 -m pip install httpie
- 
+
+WORKDIR /tmp
+
 ENTRYPOINT ["/import_repo.sh"]
