@@ -22,7 +22,7 @@ for repo in `echo $import_repos`; do
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         https://$gitbucket_url/api/v3/repos/$gitbucket_user/$repo/hooks \
-        -d '{"name":"developer-gitops","active":true,"events":["push"],"config":{"url":"'$developer_argo_webhook_url'","content_type":"json","insecure_ssl":"0"}}'
+        -d '{"name":"developer-gitops","active":true,"events":["push"],"config":{"url":"https://'$developer_argo_webhook_url'","content_type":"json","insecure_ssl":"0"}}'
 
     # push to gitbucket
     pushd $TMP
