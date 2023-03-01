@@ -3,7 +3,6 @@
 set -x
 
 TMP=tmp_repo
-developer_argo_webhook_url="developer-gitops-server-developer-gitops.apps.dshirley1ipi.vmware.tamlab.rdu2.redhat.com"
 
 for repo in `echo $import_repos`; do
     echo "--- Migrating $repo"
